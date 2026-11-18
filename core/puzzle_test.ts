@@ -23,6 +23,12 @@ Deno.test("walking into a crate pushes it one tile", () => {
   assertEquals(after.crates, [{ x: 4, y: 1 }]);
 });
 
+Deno.test("only pushing a crate counts", () => {
+  const after = move(move(corridor, "right"), "right");
+  assertEquals(after.moves, 2);
+  assertEquals(after.pushes, 1);
+});
+
 Deno.test("a crate cannot be pushed into a wall", () => {
   const stuck = parsePuzzle("Stuck", ["#####", "#@$##", "#. ##", "#####"]);
   assertStrictEquals(move(stuck, "right"), stuck);
